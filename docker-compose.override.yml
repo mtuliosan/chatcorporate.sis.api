@@ -1,0 +1,23 @@
+version: '3.4'
+
+services:
+  identityservice-postegredb:
+    container_name: identityservice-postegredb
+    restart: on-failure:3
+    environment:
+      - POSTGRES_PASSWORD=b0X35H9M
+    volumes:
+      - ./01-CreateDatabaseIdentity.sql:/docker-entrypoint-initdb.d/01-CreateDatabaseIdentity.sql
+      - ${WEBAPP_STORAGE_HOME}/site:/data/db-identity
+    ports:
+      - "5432:5432"
+  identityservice:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "80"
+      - "443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

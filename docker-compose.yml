@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  identityservice-postegredb:
+    image: postgres
+  identityservice:
+    image: ${DOCKER_REGISTRY-}identityservice
+    build:
+      context: .
+      dockerfile: IdentityService/Dockerfile
