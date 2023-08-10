@@ -1,23 +1,38 @@
 version: '3.4'
 
 services:
-  identityservice-postegredb:
-    container_name: identityservice-postegredb
+  cache: 
+    restart: on-failure:3
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    volumes: 
+      - ${WEBAPP_STORAGE_HOME}/cache:/data 
+  postegredb:
+    container_name: sis-postegredb
     restart: on-failure:3
     environment:
+      - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=b0X35H9M
     volumes:
-      - ./01-CreateDatabaseIdentity.sql:/docker-entrypoint-initdb.d/01-CreateDatabaseIdentity.sql
-      - ${WEBAPP_STORAGE_HOME}/site:/data/db-identity
+      - ${WEBAPP_STORAGE_HOME}/db:/var/lib/postgresql/data
     ports:
       - "5432:5432"
   identityservice:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - "Audience:2c67d29c-c5bc-4618-97de-1268b850a966"
+      - "Key:43B3A44E-B049-4C94-8347-203F589AC9AF"
+      - "IdentityServerConfigs:Issuer=87008B9A-EB94-4C7E-8F62-53762DD943FB"
+      - "IdentityServerConfigs:Token=34480ade9520e77107f7fe7e8bfb0d60"
+      - "Redis:RedisConnection=cache:6379,password=eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81"
+      - "ConnectionStrings:IdentityServerConnection=Host=postegredb:5432;Database=chatcorporate_sis;Username=postgres;Password=b0X35H9M;CommandTimeout=50000;TIMEOUT=1024;Pooling=True;MinPoolSize=25;MaxPoolSize=25;"
+    depends_on:
+      - postegredb
+      - cache
     ports:
-      - "80"
-      - "443"
+      - "5003:80"
     volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets/
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https/
+      

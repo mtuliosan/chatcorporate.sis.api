@@ -37,6 +37,7 @@ CREATE TABLE audiences (
 
 -- DROP TABLE public.roles;
 
+
 CREATE TABLE roles (
 	id uuid NOT NULL,
 	value varchar(100) NULL,
@@ -73,7 +74,7 @@ CREATE TABLE users (
 -- DROP TABLE public.userroles;
 
 CREATE TABLE userroles (
-	id serial4 NOT NULL,
+	id uuid NOT NULL,
 	idrole uuid NULL,
 	iduser uuid NULL,
 	idaudience uuid NULL,

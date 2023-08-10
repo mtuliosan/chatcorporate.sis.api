@@ -18,8 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{A93C
 		CreateFirstDataBase.sql = CreateFirstDataBase.sql
 	EndProjectSection
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{48D46ADD-4CF6-417C-B226-58583A291EAC}"
-EndProject
+
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens de Solução", "{7003870D-1727-466A-B74E-3535EB5E29EC}"
 EndProject
 Global

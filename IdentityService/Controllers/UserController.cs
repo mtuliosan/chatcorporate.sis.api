@@ -54,6 +54,7 @@ namespace IdentityService.Controllers
         /// <param name="userVM">Dados do novo usuário</param>
         /// <returns></returns>
         [HttpPost("register")]
+        [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] UserVM userVM)
         {
             if (!ModelState.IsValid)
@@ -108,8 +109,8 @@ namespace IdentityService.Controllers
 
                 var user = new User(loginVM.Email, loginVM.Password, new Audience(loginVM.Audience.Id));
                 var cachedToken = await _cache.GetAsync(loginVM.CacheKey);
-                if (cachedToken is not null)
-                    return Ok(new { token = Encoding.UTF8.GetString(cachedToken) });
+                //if (cachedToken is not null)
+                   // return Ok(new { token = Encoding.UTF8.GetString(cachedToken) });
 
                 var regUser = await userService.LoginAsync(user);
 

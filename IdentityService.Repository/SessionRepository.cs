@@ -25,7 +25,7 @@ namespace IdentityService.Repository
 
         public async Task<AppSession> GetOrCreateActiveSession()
         {
-            var sql = $"select * from session where isActived == true ";
+            var sql = $"select * from session where isActived = true";
             using var conn = new NpgsqlConnection(_connectionStrings);
             
             var appSession = await conn.QueryFirstOrDefaultAsync<AppSession>(sql);
