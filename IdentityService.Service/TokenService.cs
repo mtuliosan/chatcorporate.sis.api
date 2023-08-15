@@ -39,6 +39,7 @@ namespace IdentityService.Service
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
+                
                 Subject = new ClaimsIdentity(claims),
                 NotBefore = DateTime.Now,
                 IssuedAt = DateTime.Now,
@@ -50,6 +51,7 @@ namespace IdentityService.Service
 
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
+            
             var jwtToken = tokenHandler.WriteToken(token);
 
             return jwtToken;

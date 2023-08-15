@@ -62,6 +62,12 @@ namespace IdentityService.Controllers
 
             var user = new User
             {
+                firstname = userVM.FirstName,
+                lastname = userVM.LastName,
+                about = userVM.About,
+                avatar = userVM.Avatar,
+                occupation = userVM.Occupation,
+                phone = userVM.Phone,
                 Email = userVM.Email,
                 Name = userVM.Name,
                 Password = userVM.Password,
@@ -125,7 +131,8 @@ namespace IdentityService.Controllers
                     {
                         AbsoluteExpiration = DateTime.Now.AddHours(4)
                     });
-                    return Ok(new { token });
+
+                    return Ok(new { accessToken = token, user = regUser});
                 }
                 return BadRequest(new { messages = new string[] { "Usuário ou senha inválidos" } });
             }

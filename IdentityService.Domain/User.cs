@@ -47,13 +47,11 @@ namespace IdentityService.Domain
 
         public string firstname { get; set; }
         public string lastname { get; set; }
-
-        public string pic { get; set; }
-
+        public string avatar { get; set; }
         public List<Guid> roles { get; set; }
+        public string about { get; set; }        
         public string occupation { get; set; }
         public string phone { get; set; }
-
 
         public string GroupId
         {

@@ -29,10 +29,10 @@ namespace IdentityService.Repository
 
         public async Task AddAsync(User user, string salt)
         {
-            var sql = "insert into Users(id, email, password, name, salt)values(@id, @email, @password, @name, @salt)";
+            var sql = "insert into Users(id, email, password, name, salt, firstname, lastname, avatar, about, occupation, phone)values(@id, @email, @password, @name, @salt, @firstname, @lastname, @avatar, @about, @occupation, @phone)";
 
             using var conn = new NpgsqlConnection(_connectionStrings);
-            await conn.ExecuteAsync(sql, new { user.Id, user.Email, user.Password, user.Name, salt });
+            await conn.ExecuteAsync(sql, new { user.Id, user.Email, user.Password, user.Name, salt, user.firstname, user.lastname, user.avatar, user.about, user.occupation, user.phone});
         }
 
         public async Task ChangePasswordAsync(Password password)

@@ -9,11 +9,23 @@ namespace IdentityService.Models
     /// </summary>
     public class UserVM
     {
-        string email, name;
+
+
+        string email, name, avatar, phone;
         /// <summary>
         /// 
-        /// </summary>
+        /// </summary> 
         public Guid? Id { get; set; }
+
+        [Required(ErrorMessage = "O Telefone é obrigatório")]
+        public string Phone { get=> phone; set =>phone=value?.Trim(); }
+
+        public string FirstName { get; set; }
+        public string Occupation { get; set; }
+        public string About { get; set; }
+        public string LastName { get; set; }
+        public string Avatar { get => avatar; set => avatar = value?.Trim(); } 
+        
         /// <summary>
         /// 
         /// </summary>
@@ -38,6 +50,8 @@ namespace IdentityService.Models
         /// 
         /// </summary>
         public LoginAudienceVM Audience { get; set; }
+
+
         public string roleId { get; set; }
         public string roleName { get; set; }
     }

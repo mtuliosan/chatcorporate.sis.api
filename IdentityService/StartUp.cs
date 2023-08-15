@@ -73,7 +73,7 @@ namespace IdentityService
             app.UseSwagger();
             app.UseSwaggerConfig(provider);
             
-            // app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseAuthentication();
             app.UseRouting();
