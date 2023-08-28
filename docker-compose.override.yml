@@ -23,7 +23,8 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - "Audience:2c67d29c-c5bc-4618-97de-1268b850a966"
       - "Key:f90702a4-a013-4a5d-bd06-ce600dd8a588"
-      - "IdentityServerConfigs:Issuer=87008B9A-EB94-4C7E-8F62-53762DD943FB, Token=34480ade9520e77107f7fe7e8bfb0d60"      
+      - "IdentityServerConfigs:Issuer=87008B9A-EB94-4C7E-8F62-53762DD943FB"
+      - "IdentityServerConfigs:Token=34480ade9520e77107f7fe7e8bfb0d60"      
       - "Redis:RedisConnection=cache:6379,password=eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81"
       - "ConnectionStrings:IdentityServerConnection=Host=postegredb:5432;Database=chatcorporate_sis;Username=postgres;Password=b0X35H9M;CommandTimeout=50000;TIMEOUT=1024;Pooling=True;MinPoolSize=25;MaxPoolSize=25;"
     depends_on:

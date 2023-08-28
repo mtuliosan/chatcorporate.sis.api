@@ -202,13 +202,25 @@ namespace IdentityService.Controllers
         /// <returns>Lista de usuários</returns>
         //[Authorize("admin")]
         [HttpGet("list")]
-        public async Task<IActionResult> ListAsync() => Ok(await userService.ListAsync());
+        public async Task<IActionResult> ListAsync(){
+
+            var userIdLogged = User.FindFirst("UId")?.Value;
+            var users = await userService.ListAsync();
+
+            if(userIdLogged != null)
+            {   if(!User.IsInRole("admin"))
+                    users = users.Where(x => x.Id.ToString() != userIdLogged); 
+            }       
+            
+            return Ok(users);
+
+        } 
 
 
         
         /// <summary>
         /// Atualiza os dados do usuário
-        /// </summary>
+        ///  </summary>
         /// <param name="userEditVM">Dados do usuário</param>
         /// <param name="userId">Id do usuário</param>
         /// <returns></returns>

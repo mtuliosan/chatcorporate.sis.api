@@ -35,7 +35,7 @@ namespace IdentityService.Service
                 new Claim("WppToken", session.Token.ToString()),
                 new Claim("UId", user.Id.HasValue ? user.Id.Value.ToString() : "")
             };
-            claims.AddRange(user.Audience.Roles.Select(x => new Claim("role", x.Value)));
+            claims.AddRange(user.Audience.Roles.Select(x => new Claim(ClaimTypes.Role, x.Value)));
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -46,7 +46,8 @@ namespace IdentityService.Service
                 Expires = DateTime.Now.AddHours(expirationTime),
                 SigningCredentials = signingCredentials,
                 Issuer = issuer.ToUpper(),
-                Audience = user.Audience.Id.ToString().ToUpper()
+                Audience = user.Audience.Id.ToString().ToUpper(),
+              
             };
 
 
