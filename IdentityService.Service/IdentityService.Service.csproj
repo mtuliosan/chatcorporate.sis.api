@@ -12,6 +12,8 @@
     <PackageReference Include="Nancy" Version="2.0.0" />
     <PackageReference Include="Refit" Version="6.3.2" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.27.0" />
+
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.21"/>
   </ItemGroup>
 
   <ItemGroup>

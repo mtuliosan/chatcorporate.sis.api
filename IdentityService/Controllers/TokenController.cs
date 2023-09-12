@@ -6,6 +6,8 @@ using IdentityService.Util;
 using System;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using IdentityService.Models;
 
 namespace IdentityService.App.Controllers
 {
@@ -60,6 +62,13 @@ namespace IdentityService.App.Controllers
             }
 
             return BadRequest(new { messages = new string[] { "Usuário ou senha inválidos" } });
+        }
+
+
+        [HttpPost("auth/sign-in-with-token")]
+        [AllowAnonymous]
+        public  async Task<IActionResult> LoginByToken([FromBody]LoginTokenVM  accessToken){
+            return Ok(await tokenService.LoginByToken(accessToken.accessToken));
         }
     }
 }

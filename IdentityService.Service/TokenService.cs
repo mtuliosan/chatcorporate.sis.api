@@ -9,14 +9,28 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Security.Principal;
+using System.Net.Http.Headers;
 
 namespace IdentityService.Service
 {
     public class TokenService : ITokenService
     {
         readonly string issuer;
+        readonly string key;
+        readonly string audience;      
 
-        public TokenService(IOptions<IdentityServerConfigs> config) => issuer = config.Value.Issuer;
+
+        private IUserService _userService; 
+        public TokenService(IOptions<IdentityServerConfigs> config ,
+            IOptions<SettingsConfig>settingsConfig,
+            IUserService userService
+        ) { 
+            _userService = userService;
+            issuer = config.Value.Issuer.ToUpper();
+            key = settingsConfig.Value.Key.ToUpper();
+            audience = settingsConfig.Value.Audience.ToUpper();
+        }
 
         public string Create(User user, AppSession session, int expirationTime = 4)
         {
@@ -57,5 +71,41 @@ namespace IdentityService.Service
 
             return jwtToken;
         }
+
+        public async Task<LoginToken> LoginByToken(string accessToken)
+        {
+            ClaimsPrincipal user = ValidateToken(accessToken);
+            var uid =    user.Claims.FirstOrDefault(x=> x.Type == "UId")?.Value.ToString();
+
+            return new LoginToken(){
+                user = await _userService.GetDetailsUser(uid),
+                accessToken = accessToken, 
+                tokenType = "bearer"
+            };
+        }
+
+
+        private  ClaimsPrincipal ValidateToken(string authToken)
+        {
+           var tokenHandler = new JwtSecurityTokenHandler();
+           var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("f90702a4-a013-4a5d-bd06-ce600dd8a588"));
+
+           var validationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey =securityKey,
+                ValidIssuer = issuer, 
+                ValidAudience = audience,
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true//Not setting ClockSkew will make token valid for more 5 minutes
+            };
+
+
+            SecurityToken validatedToken;
+            return  tokenHandler.ValidateToken(authToken, validationParameters, out validatedToken);
+            
+        }
+
     }
 }

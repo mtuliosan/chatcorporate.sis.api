@@ -1,4 +1,5 @@
-﻿using System;
+   
+   using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +7,9 @@ using System.Threading.Tasks;
 
 namespace IdentityService.Domain.Config
 {
-    public class IdentityServerConfigs
+    public class SettingsConfig
     {
-        public string Issuer { get; set; }
-        public string Token { get; set; }
-   
+        public string Key { get; set; }
+        public string Audience { get; set; }
     }
-    
 }

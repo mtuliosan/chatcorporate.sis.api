@@ -43,7 +43,7 @@ namespace IdentityService
 
             services.Configure<ConnectionStrings>(_config.GetSection("ConnectionStrings"));
             services.Configure<IdentityServerConfigs>(_config.GetSection("IdentityServerConfigs"));
-
+            services.Configure<SettingsConfig>(_config);
 
             services.AddApiVersioning(options =>
             {
