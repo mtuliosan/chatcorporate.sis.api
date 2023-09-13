@@ -12,10 +12,10 @@ services:
     container_name: sis-postegredb
     restart: on-failure:3
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=b0X35H9M
+      - POSTGRES_USER=chatcorporate-sis
+      - POSTGRES_PASSWORD=Wo876MtBrZ35LbBzWYLZ
     volumes:
-      - ${WEBAPP_STORAGE_HOME}/db:/var/lib/postgresql/data
+      - ${WEBAPP_STORAGE_HOME}/db:/var/lib/postgresql/datacd 
     ports:
       - "5432:5432"
   identityservice:
@@ -26,7 +26,7 @@ services:
       - "IdentityServerConfigs:Issuer=87008B9A-EB94-4C7E-8F62-53762DD943FB"
       - "IdentityServerConfigs:Token=34480ade9520e77107f7fe7e8bfb0d60"      
       - "Redis:RedisConnection=cache:6379,password=eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81"
-      - "ConnectionStrings:IdentityServerConnection=Host=postegredb:5432;Database=chatcorporate_sis;Username=postgres;Password=b0X35H9M;CommandTimeout=50000;TIMEOUT=1024;Pooling=True;MinPoolSize=25;MaxPoolSize=25;"
+      - "ConnectionStrings:IdentityServerConnection=Host=postegredb:5432;Database=chatcorporate_sis;Username=chatcorporate-sis;Password=Wo876MtBrZ35LbBzWYLZ;CommandTimeout=50000;TIMEOUT=1024;Pooling=True;MinPoolSize=25;MaxPoolSize=25;"
     depends_on:
       - postegredb
       - cache
