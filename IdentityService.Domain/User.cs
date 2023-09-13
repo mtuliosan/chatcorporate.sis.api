@@ -44,7 +44,7 @@ namespace IdentityService.Domain
         public string Name { get; set; }
         public string RoleId { get; set; }
         public string RoleName { get; set; }
-
+        public string departamento { get; set; }
         public string firstname { get; set; }
         public string lastname { get; set; }
         public string avatar { get; set; }

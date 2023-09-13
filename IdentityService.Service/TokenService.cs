@@ -42,6 +42,7 @@ namespace IdentityService.Service
             var claims = new List<Claim>
             {
                 new Claim("name", user.Name),
+                new Claim("departamento", user.departamento),
                 new Claim("GroupId", user.GroupId),
                 new Claim("UserId", user.UserId),
                 new Claim("Session", session.Session.ToString()),
